@@ -39,8 +39,7 @@ ReactDOM.render(
         <Router history={history}>       
             <Route path="/" component={Login}/>
             <Route path="/home" component={Home}/>       
-        </Router>
-        
+        </Router>        
       </div>
     </Provider>
   </MuiThemeProvider>,

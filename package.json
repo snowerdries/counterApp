@@ -4,6 +4,8 @@
   "repository": "",
   "license": "",
   "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
     "material-ui": "^0.15.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -29,6 +31,8 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --history-api-fallback --no-info --open"
+    "startdev": "webpack-dev-server --history-api-fallback --no-info --open",
+    "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
+    "start": "node server.js"
   }
 }
