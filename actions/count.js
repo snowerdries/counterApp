@@ -1,6 +1,7 @@
 import { INCREASE, DECREASE } from '../constants'
 
-export function increase(n) {
+export function increase(n) {  
+  console.log('increase');
   return {
     type: INCREASE,
     amount: n

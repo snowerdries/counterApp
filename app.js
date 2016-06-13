@@ -12,6 +12,9 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import * as reducers from './reducers'
 import { Home, Login } from './components'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const reducer = combineReducers({
   ...reducers,
   routing: routerReducer
@@ -28,16 +31,18 @@ const store = createStore(
   DevTools.instrument()
 )
 const history = syncHistoryWithStore(browserHistory, store)
-
+//<DevTools />
 ReactDOM.render(
-  <Provider store={store}>
-    <div>
-      <Router history={history}>       
-          <Route path="/" component={Login}/>
-          <Route path="/home" component={Home}/>       
-      </Router>
-      <DevTools />
-    </div>
-  </Provider>,
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <Provider store={store}>
+      <div>
+        <Router history={history}>       
+            <Route path="/" component={Login}/>
+            <Route path="/home" component={Home}/>       
+        </Router>
+        
+      </div>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('mount')
 )
