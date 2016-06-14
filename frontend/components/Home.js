@@ -7,7 +7,10 @@ import Badge from 'material-ui/Badge';
 import AppBar from 'material-ui/AppBar';
 
 const mapStateToProps = function mapState(state) {
-  return { aantal: state.count.aantal };
+  if (state) {
+    return { aantal: state.count.aantal };
+  }
+  return {};
 };
 
 const mapDispatchToProps = function mapProps(dispatch) {

@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './frontend/app.js'
+    './frontend/entry.jsx'
   ],
 
   output: {
@@ -32,7 +32,7 @@ module.exports = {
   eslint: {
     configFile: '.eslintrc',
     failOnWarning: false,
-    failOnError: false
+    failOnError: true
   },
 
   module: {

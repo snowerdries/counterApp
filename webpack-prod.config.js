@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'source-map',
 
   entry: [
-    './frontend/app.js'
+    './frontend/entry.jsx'
   ],
 
   output: {
