@@ -5,6 +5,10 @@ import { increase, decrease } from '../actions/count.js';
 import RaisedButton from 'material-ui/RaisedButton';
 import Badge from 'material-ui/Badge';
 import AppBar from 'material-ui/AppBar';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const mapStateToProps = function mapState(state) {
   if (state) {
@@ -36,27 +40,34 @@ class Home extends React.Component {
   _counterDecrease() {
     this.props.counterDecrease();
   }
-
+  _renderRightMenu() {
+    return (
+      <IconMenu
+        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+      >
+        <MenuItem onTouchTap={this._signOut} value="signOut" primaryText="Sign Out" />
+      </IconMenu>
+    );
+  }
   render() {
+    const rightMenu = this._renderRightMenu();
+    console.log(rightMenu);
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xs-12"><AppBar showMenuIconButton={false} title="HOME" /></div>
-        </div>
-        <div className="row" style={{ marginTop: '10px' }}>
-          <div className="col-xs-4">
-            <RaisedButton label="Tel op" onMouseDown={() => this._counterIncrease()} primary />
-          </div>
-          <div className="col-xs-4 text-center">
-            <Badge badgeContent={this.props.aantal} primary />
-          </div>
-          <div className="col-xs-4">
-            <RaisedButton className="pull-right" label="Trek af" onMouseDown={() => this._counterDecrease()} primary />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12 text-center">
-            <RaisedButton label="Sign out" onMouseDown={() => this._signOut()} primary />
+          <AppBar showMenuIconButton={false} title="HOME" iconElementRight={rightMenu} />
+          <div className="row" style={{ marginTop: '10px' }}>
+            <div className="col-xs-4">
+              <RaisedButton label="Tel op" onMouseDown={() => this._counterIncrease()} primary />
+            </div>
+            <div className="col-xs-4 text-center">
+              <Badge badgeContent={this.props.aantal} primary />
+            </div>
+            <div className="col-xs-4">
+              <RaisedButton className="pull-right" label="Trek af" onMouseDown={() => this._counterDecrease()} primary />
+            </div>
           </div>
         </div>
       </div>
