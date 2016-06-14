@@ -53,20 +53,19 @@ class Home extends React.Component {
   }
   render() {
     const rightMenu = this._renderRightMenu();
-    console.log(rightMenu);
     return (
       <div className="container-fluid">
         <div className="row">
           <AppBar showMenuIconButton={false} title="HOME" iconElementRight={rightMenu} />
           <div className="row" style={{ marginTop: '10px' }}>
-            <div className="col-xs-4">
-              <RaisedButton label="Tel op" onMouseDown={() => this._counterIncrease()} primary />
+            <div className="col-xs-4 text-center">
+              <RaisedButton label="+" onMouseDown={() => this._counterIncrease()} primary />
             </div>
             <div className="col-xs-4 text-center">
               <Badge badgeContent={this.props.aantal} primary />
             </div>
-            <div className="col-xs-4">
-              <RaisedButton className="pull-right" label="Trek af" onMouseDown={() => this._counterDecrease()} primary />
+            <div className="col-xs-4 text-center">
+              <RaisedButton label="-" onMouseDown={() => this._counterDecrease()} primary />
             </div>
           </div>
         </div>
