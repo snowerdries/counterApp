@@ -12,15 +12,17 @@ import Login from './components/Login.js';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+const count = reducers.count;
+
 const reducer = combineReducers({
-  reducers,
+  count,
   routing: routerReducer,
 });
 
 const store = createStore(
   reducer
 );
-console.log(Login);
+
 const history = syncHistoryWithStore(browserHistory, store);
 const layout = (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
