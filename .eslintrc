@@ -1,0 +1,24 @@
+{
+  "parser": "babel-eslint", // I want to use babel-eslint for parsing!
+  "extends": "airbnb",
+  "globals": {
+    "jasmine": true,
+    "expect": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "max-len": 0
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "plugins": [
+    "react"
+  ]
+}
