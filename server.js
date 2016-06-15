@@ -9,7 +9,10 @@ require('dotenv').config();
 app.use(express.static(static_path));
 app.use(cors());
 
-app.all('/*', function (req, res) {
+var auth = require('./backend/auth.js')(app);
+app.use('/', auth);
+
+app.all('/*', function (req, res) {  
   res.sendFile('/index.html', {
     root: static_path
   });
@@ -36,3 +39,4 @@ if (isDevelopment) {
     console.log('Listening at localhost:3000');
   });
 }
+
