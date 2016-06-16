@@ -1,6 +1,7 @@
 import { RECIEVE_USER } from '../constants';
 
 const initialState = {
+
 };
 
 export default function update(state = initialState, action) {

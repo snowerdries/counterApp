@@ -17,11 +17,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Login extends React.Component {
-  componentDidMount() {
-    if (!this._isAuthenticated()) {
-      this.props.doAuthenticate();
+  componentDidUpdate() {
+    if (this._isAuthenticated()) {
+      browserHistory.push('/home');
     }
   }
+
   _isAuthenticated() {
     return (this.props.user && this.props.user.displayName);
   }

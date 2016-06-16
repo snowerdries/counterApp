@@ -1,5 +1,6 @@
 import * as apiFunctions from '../api/apiFunctions.js';
 import { RECIEVE_USER } from '../constants.js';
+import { browserHistory } from 'react-router';
 
 export const setUser = (user) => ({
   type: RECIEVE_USER,
@@ -7,7 +8,6 @@ export const setUser = (user) => ({
 });
 
 export const doAuthenticate = (dispatch) => {
-  console.log('test1');
   apiFunctions.doAuthenticate()
       .then((response) => {
         const user = setUser(response.data);
@@ -15,6 +15,15 @@ export const doAuthenticate = (dispatch) => {
       })
       .catch((err) => {
         console.log('USER FAILURE', err); //eslint-disable-line
+      });
+};
+
+export const doLogout = (dispatch) => {
+  apiFunctions.doLogout()
+      .then((response) => {
+        const user = setUser(response.data);
+        dispatch(user);
+        browserHistory.push('/');
       });
 };
 

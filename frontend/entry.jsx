@@ -12,6 +12,10 @@ import Login from './components/Login.js';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import * as apiFunctions from './api/apiFunctions.js';
+
+import { RECIEVE_USER } from './constants.js';
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -28,11 +32,34 @@ const store = createStore(
   reducer
 );
 
+export const setUser = (userpar) => ({
+  type: RECIEVE_USER,
+  user: userpar,
+});
+
+apiFunctions.doAuthenticate()
+  .then((response) => {
+    const userAction = setUser(response.data);
+    store.dispatch(userAction);
+  })
+  .catch((err) => {
+    console.log('USER FAILURE', err); //eslint-disable-line
+  });
+
 function redirectIfNotAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
   if (!(loggedinUser && loggedinUser.displayName)) {
     replace({
       pathname: '/',
+    });
+  }
+}
+
+function redirectIfAuthenticated(nextState, replace) {
+  const loggedinUser = store.getState().user;
+  if (loggedinUser && loggedinUser.displayName) {
+    replace({
+      pathname: '/home',
     });
   }
 }
@@ -43,15 +70,13 @@ const layout = (
     <Provider store={store}>
       <div>
         <Router history={history}>
-          <Route path="/" component={Login} />
+          <Route path="/" component={Login} onEnter={redirectIfAuthenticated} />
           <Route path="/home" component={Home} onEnter={redirectIfNotAuthenticated} />
         </Router>
       </div>
     </Provider>
   </MuiThemeProvider>
 );
-
-console.log(document.cookie);
 
 ReactDOM.render(
   layout

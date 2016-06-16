@@ -68,6 +68,15 @@ app.get('/api/user',function(req, res){
     }
     
   });
+
+  app.get('/api/user/logout',function(req, res){
+    res.setHeader('Content-Type', 'application/json'); 
+    req.session.user=null;      
+    res.send('{}');    
+  });
+  
   return require('express').Router();
 };
+
+
 
