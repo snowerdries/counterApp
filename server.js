@@ -12,7 +12,7 @@ app.use(cors());
 var auth = require('./backend/auth.js')(app);
 app.use('/', auth);
 
-app.all('/*', function (req, res) {  
+app.all('/*', function (req, res) {
   res.sendFile('/index.html', {
     root: static_path
   });

@@ -3,6 +3,12 @@
 module.exports = function(app) {
     //715231429824-6em74hbnmpc68j0dpj61fvjd9bi5dk9v.apps.googleusercontent.com
 //NeMrRHIzob3mcfdnUJD-NUdu
+var session = require('express-session');
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -27,9 +33,9 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://snowerdries.herokuapp.com/api/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-       
+
          return done(null, profile);
-           
+
   }
 ));
 
@@ -46,10 +52,22 @@ app.get('/api/auth/google',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/api/auth/google/callback', 
+app.get('/api/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {    
-    res.redirect('/home');
+  function(req, res) {
+    req.session.user=req.user;
+    res.redirect('/');    
+  });
+
+app.get('/api/user',function(req, res){
+    res.setHeader('Content-Type', 'application/json'); 
+    if(req.session.user){
+      res.send(req.session.user._json);
+    } else {
+      res.send('{}');
+    }
+    
   });
   return require('express').Router();
 };
+

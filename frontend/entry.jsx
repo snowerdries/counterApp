@@ -16,9 +16,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const count = reducers.count;
+const user = reducers.user;
 
 const reducer = combineReducers({
   count,
+  user,
   routing: routerReducer,
 });
 
@@ -39,6 +41,8 @@ const layout = (
     </Provider>
   </MuiThemeProvider>
 );
+
+console.log(document.cookie);
 
 ReactDOM.render(
   layout
