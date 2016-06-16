@@ -9,12 +9,13 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import * as apiActions from '../actions/api.js';
 
 const mapStateToProps = function mapState(state) {
-  if (state) {
-    return { aantal: state.count.aantal };
-  }
-  return {};
+  return {
+    aantal: state.count.aantal,
+    user: state.user,
+  };
 };
 
 const mapDispatchToProps = function mapProps(dispatch) {
@@ -25,10 +26,23 @@ const mapDispatchToProps = function mapProps(dispatch) {
     counterDecrease: () => {
       dispatch(decrease(1));
     },
+    doAuthenticate: () => {
+      apiActions.doAuthenticate(dispatch);
+      // browserHistory.push('/home');
+    },
   };
 };
 
 class Home extends React.Component {
+  componentDidMount() {
+    if (!this._isAuthenticated()) {
+      this.props.doAuthenticate();
+    }
+  }
+  _isAuthenticated() {
+    return (this.props.user && this.props.user.displayName);
+  }
+
   _signOut() {
     browserHistory.push('/');
   }
@@ -78,6 +92,8 @@ Home.propTypes = {
   counterIncrease: React.PropTypes.func,
   counterDecrease: React.PropTypes.func,
   aantal: React.PropTypes.number,
+  doAuthenticate: React.PropTypes.func,
+  user: React.PropTypes.object,
 };
 
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);

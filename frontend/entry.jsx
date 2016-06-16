@@ -28,6 +28,15 @@ const store = createStore(
   reducer
 );
 
+function redirectIfNotAuthenticated(nextState, replace) {
+  const loggedinUser = store.getState().user;
+  if (!(loggedinUser && loggedinUser.displayName)) {
+    replace({
+      pathname: '/',
+    });
+  }
+}
+
 const history = syncHistoryWithStore(browserHistory, store);
 const layout = (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -35,7 +44,7 @@ const layout = (
       <div>
         <Router history={history}>
           <Route path="/" component={Login} />
-          <Route path="/home" component={Home} />
+          <Route path="/home" component={Home} onEnter={redirectIfNotAuthenticated} />
         </Router>
       </div>
     </Provider>
