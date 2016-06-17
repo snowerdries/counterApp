@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Login extends React.Component {
   componentDidUpdate() {
     if (this._isAuthenticated()) {
-      browserHistory.push('/home');
+      browserHistory.push('/');
     }
   }
 
@@ -29,7 +29,7 @@ class Login extends React.Component {
 
   _doAuthenticate() {
     if (this._isAuthenticated()) {
-      browserHistory.push('/home');
+      browserHistory.push('/');
     } else {
       location.href = '/api/auth/google';
     }

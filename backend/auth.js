@@ -30,7 +30,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: '715231429824-6em74hbnmpc68j0dpj61fvjd9bi5dk9v.apps.googleusercontent.com',
     clientSecret: 'NeMrRHIzob3mcfdnUJD-NUdu',
-    callbackURL: "http://snowerdries.herokuapp.com/api/auth/google/callback"
+    callbackURL: "http://localhost:3000/api/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
 

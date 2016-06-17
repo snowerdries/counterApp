@@ -50,7 +50,7 @@ function redirectIfNotAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
   if (!(loggedinUser && loggedinUser.id)) {
     replace({
-      pathname: '/',
+      pathname: '/login',
     });
   }
 }
@@ -59,7 +59,7 @@ function redirectIfAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
   if (loggedinUser && loggedinUser.id) {
     replace({
-      pathname: '/home',
+      pathname: '/',
     });
   }
 }
@@ -70,8 +70,8 @@ const layout = (
     <Provider store={store}>
       <div>
         <Router history={history}>
-          <Route path="/" component={Login} onEnter={redirectIfAuthenticated} />
-          <Route path="/home" component={Home} onEnter={redirectIfNotAuthenticated} />
+          <Route path="/login" component={Login} onEnter={redirectIfAuthenticated} />
+          <Route path="/" component={Home} onEnter={redirectIfNotAuthenticated} />
         </Router>
       </div>
     </Provider>

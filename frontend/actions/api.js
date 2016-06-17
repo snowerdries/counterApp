@@ -23,7 +23,7 @@ export const doLogout = (dispatch) => {
       .then((response) => {
         const user = setUser(response.data);
         dispatch(user);
-        browserHistory.push('/');
+        browserHistory.push('/login');
       });
 };
 
