@@ -24,7 +24,7 @@ class Login extends React.Component {
   }
 
   _isAuthenticated() {
-    return (this.props.user && this.props.user.displayName);
+    return (this.props.user && this.props.user.id);
   }
 
   _doAuthenticate() {

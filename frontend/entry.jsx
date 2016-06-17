@@ -48,7 +48,7 @@ apiFunctions.doAuthenticate()
 
 function redirectIfNotAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
-  if (!(loggedinUser && loggedinUser.displayName)) {
+  if (!(loggedinUser && loggedinUser.id)) {
     replace({
       pathname: '/',
     });
@@ -57,7 +57,7 @@ function redirectIfNotAuthenticated(nextState, replace) {
 
 function redirectIfAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
-  if (loggedinUser && loggedinUser.displayName) {
+  if (loggedinUser && loggedinUser.id) {
     replace({
       pathname: '/home',
     });
