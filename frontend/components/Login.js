@@ -12,17 +12,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   doAuthenticate: () => {
     apiActions.doAuthenticate(dispatch);
-    // browserHistory.push('/home');
   },
 });
 
 class Login extends React.Component {
-  componentDidUpdate() {
-    if (this._isAuthenticated()) {
-      browserHistory.push('/');
-    }
-  }
-
   _isAuthenticated() {
     return (this.props.user && this.props.user.id);
   }

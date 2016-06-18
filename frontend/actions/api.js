@@ -1,6 +1,6 @@
 import * as apiFunctions from '../api/apiFunctions.js';
 import { RECIEVE_USER } from '../constants.js';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 
 export const setUser = (user) => ({
   type: RECIEVE_USER,
@@ -23,7 +23,6 @@ export const doLogout = (dispatch) => {
       .then((response) => {
         const user = setUser(response.data);
         dispatch(user);
-        browserHistory.push('/login');
       });
 };
 

@@ -32,6 +32,22 @@ const store = createStore(
   reducer
 );
 
+let currentValue;
+function handleChange() {
+  const previousValue = currentValue;
+  currentValue = store.getState().user;
+
+  if (previousValue !== currentValue) {
+    if (currentValue && currentValue.id) {
+      browserHistory.push('/home');
+    } else if (currentValue) {
+      browserHistory.push('/login');
+    }
+  }
+}
+
+store.subscribe(handleChange);
+
 export const setUser = (userpar) => ({
   type: RECIEVE_USER,
   user: userpar,
@@ -59,7 +75,7 @@ function redirectIfAuthenticated(nextState, replace) {
   const loggedinUser = store.getState().user;
   if (loggedinUser && loggedinUser.id) {
     replace({
-      pathname: '/',
+      pathname: '/home',
     });
   }
 }
@@ -70,8 +86,9 @@ const layout = (
     <Provider store={store}>
       <div>
         <Router history={history}>
+          <Route path="/" />
           <Route path="/login" component={Login} onEnter={redirectIfAuthenticated} />
-          <Route path="/" component={Home} onEnter={redirectIfNotAuthenticated} />
+          <Route path="/home" component={Home} onEnter={redirectIfNotAuthenticated} />
         </Router>
       </div>
     </Provider>
