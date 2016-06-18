@@ -22,10 +22,6 @@ const initialState = [
     description: 'Taak 5',
   },
   {
-    id: 2,
-    description: 'Taak 2',
-  },
-  {
     id: 6,
     description: 'Taak 6',
   },
