@@ -2,8 +2,6 @@ import React from 'react';
 // import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { increase, decrease } from '../actions/count.js';
-import RaisedButton from 'material-ui/RaisedButton';
-import Badge from 'material-ui/Badge';
 import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -92,8 +90,8 @@ class Home extends React.Component {
     );
   }
   _renderTasks() {
-    const items = _.map(this.props.tasks, (task) => (<ListItem leftCheckbox={leftCheckBox} rightIconButton={rightIconMenu} primaryText={task.description} />));
-    return (<List>{items}</List>);
+    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={'18-06-2016 22:30'} leftCheckbox={leftCheckBox} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    return (<List style={{ maxHeight: '90vh', overflow: 'scroll' }}>{items}</List>);
   }
   render() {
     const rightMenu = this._renderRightMenu();
@@ -104,19 +102,10 @@ class Home extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <AppBar title={title} iconElementLeft={avatar} iconElementRight={rightMenu} />
-          <div className="row" style={{ marginTop: '10px' }}>
-            <div className="col-xs-4 text-center">
-              <RaisedButton label="+" onMouseDown={() => this._counterIncrease()} primary />
+          <div className="row">
+            <div className="col-xs-12">
+              {this._renderTasks()}
             </div>
-            <div className="col-xs-4 text-center">
-              <Badge badgeContent={this.props.aantal} primary />
-            </div>
-            <div className="col-xs-4 text-center">
-              <RaisedButton label="-" onMouseDown={() => this._counterDecrease()} primary />
-            </div>
-          </div>
-          <div>
-            {this._renderTasks()}
           </div>
         </div>
       </div>
