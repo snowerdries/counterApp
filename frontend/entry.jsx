@@ -21,10 +21,12 @@ injectTapEventPlugin();
 
 const count = reducers.count;
 const user = reducers.user;
+const tasks = reducers.tasks;
 
 const reducer = combineReducers({
   count,
   user,
+  tasks,
   routing: routerReducer,
 });
 

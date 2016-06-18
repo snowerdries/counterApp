@@ -12,11 +12,45 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Avatar from 'material-ui/Avatar';
 // import * as apiFunctions from '../api/apiFunctions.js';
 import * as apiActions from '../actions/api.js';
+import { List, ListItem } from 'material-ui/List';
+import * as _ from 'lodash';
+import { grey400 } from 'material-ui/styles/colors';
+import Checkbox from 'material-ui/Checkbox';
+
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+};
+
+const iconButtonElement = (
+  <IconButton
+    touch
+  >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
+
+const rightIconMenu = (
+  <IconMenu iconButtonElement={iconButtonElement}>
+    <MenuItem>Delete</MenuItem>
+  </IconMenu>
+);
+
+const leftCheckBox = (
+  <Checkbox
+    style={styles.checkbox}
+  />
+);
 
 const mapStateToProps = function mapState(state) {
   return {
     aantal: state.count.aantal,
     user: state.user,
+    tasks: state.tasks,
   };
 };
 
@@ -57,6 +91,10 @@ class Home extends React.Component {
       </IconMenu>
     );
   }
+  _renderTasks() {
+    const items = _.map(this.props.tasks, (task) => (<ListItem leftCheckbox={leftCheckBox} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    return (<List>{items}</List>);
+  }
   render() {
     const rightMenu = this._renderRightMenu();
     const title = `HOME ${this.props.user.displayName}`;
@@ -77,6 +115,9 @@ class Home extends React.Component {
               <RaisedButton label="-" onMouseDown={() => this._counterDecrease()} primary />
             </div>
           </div>
+          <div>
+            {this._renderTasks()}
+          </div>
         </div>
       </div>
     );
@@ -89,6 +130,7 @@ Home.propTypes = {
   aantal: React.PropTypes.number,
   doLogout: React.PropTypes.func,
   user: React.PropTypes.object,
+  tasks: React.PropTypes.array,
 };
 
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
