@@ -2,7 +2,3 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-
-.overflowHidden {
-  overflow: hidden;
-}
