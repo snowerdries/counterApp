@@ -91,7 +91,7 @@ class Home extends React.Component {
   }
   _renderTasks() {
     const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={'18-06-2016 22:30'} leftCheckbox={leftCheckBox} rightIconButton={rightIconMenu} primaryText={task.description} />));
-    return (<List className={'smoothScrolling'} style={{ maxHeight: '90vh' }}>{items}</List>);
+    return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
     const rightMenu = this._renderRightMenu();
