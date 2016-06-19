@@ -18,6 +18,7 @@ import { RECIEVE_USER } from './constants.js';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+require('../css/app.css');
 
 const count = reducers.count;
 const user = reducers.user;
