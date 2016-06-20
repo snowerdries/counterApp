@@ -13,12 +13,13 @@ import * as apiActions from '../actions/api.js';
 import { List, ListItem } from 'material-ui/List';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { grey400 } from 'material-ui/styles/colors';
 import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { deleteTask } from '../actions/tasks.js';
 import { browserHistory } from 'react-router';
-import Delete from 'material-ui/svg-icons/action/delete';
+
 
 import { RECIEVE_TASK } from '../constants.js';
 
@@ -35,6 +36,14 @@ const styles = {
     bottom: '25px',
   },
 };
+
+const iconButtonElement = (
+  <IconButton
+    touch
+  >
+    <MoreVertIcon color={grey400} />
+  </IconButton>
+);
 
 const mapStateToProps = function mapState(state) {
   return {
@@ -108,7 +117,7 @@ class Home extends React.Component {
   _renderTasks() {
     const rightIconMenuClicked = (task) => this._taskDeleted.bind(this, task);
     const rightIconMenu = (task) =>
-      (<IconButton onTouchTap={rightIconMenuClicked(task)}><Delete /></IconButton>);
+      (<IconMenu iconButtonElement={iconButtonElement}><MenuItem onTouchTap={rightIconMenuClicked(task)}>Delete</MenuItem></IconMenu>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} onCheck={taskChecked(task)} />);
     const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
