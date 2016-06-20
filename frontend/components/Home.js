@@ -108,7 +108,7 @@ class Home extends React.Component {
   _renderTasks() {
     const rightIconMenuClicked = (task) => this._taskDeleted.bind(this, task);
     const rightIconMenu = (task) =>
-      (<IconButton style={{ width: '100px' }} onTouchTap={rightIconMenuClicked(task)}><Delete /></IconButton>);
+      (<IconButton onTouchTap={rightIconMenuClicked(task)}><Delete /></IconButton>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} onCheck={taskChecked(task)} />);
     const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
