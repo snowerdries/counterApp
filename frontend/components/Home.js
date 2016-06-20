@@ -16,6 +16,8 @@ import * as moment from 'moment';
 import { grey400 } from 'material-ui/styles/colors';
 import Checkbox from 'material-ui/Checkbox';
 
+import { RECIEVE_TASK } from '../constants.js';
+
 const styles = {
   block: {
     maxWidth: 250,
@@ -47,6 +49,11 @@ const mapStateToProps = function mapState(state) {
   };
 };
 
+export const setTask = (task) => ({
+  type: RECIEVE_TASK,
+  task,
+});
+
 const mapDispatchToProps = function mapProps(dispatch) {
   return {
     counterIncrease: () => {
@@ -59,6 +66,7 @@ const mapDispatchToProps = function mapProps(dispatch) {
       apiActions.doLogout(dispatch);
     },
     updateTask: (task) => {
+      dispatch(setTask(task));
       apiActions.updateTask(task, dispatch);
     },
   };
@@ -87,14 +95,14 @@ class Home extends React.Component {
       </IconMenu>
     );
   }
-  _taskChecked(task) {
+  _taskChecked(task, e) {
     const modTask = task;
-    modTask.executionDate = moment.default().format('DD-MM-YYYY HH:MM');
+    modTask.executionDate = e.target.checked ? moment.default().format('DD-MM-YYYY HH:mm') : null;
     this.props.updateTask(task);
   }
   _renderTasks() {
     const taskChecked = (task) => this._taskChecked.bind(this, task);
-    const leftCheckBox = (task) => (<Checkbox style={styles.checkbox} onCheck={taskChecked(task)} id={task.id} />);
+    const leftCheckBox = (task) => (<Checkbox checked={task.executionDate} style={styles.checkbox} onCheck={taskChecked(task)} />);
     const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
