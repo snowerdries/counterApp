@@ -98,12 +98,13 @@ class Home extends React.Component {
   _taskChecked(task, e) {
     const modTask = task;
     modTask.executionDate = e.target.checked ? moment.default().format('DD-MM-YYYY HH:mm') : null;
+    modTask.isExecuted = e.target.checked;
     this.props.updateTask(task);
   }
   _renderTasks() {
     const taskChecked = (task) => this._taskChecked.bind(this, task);
-    const leftCheckBox = (task) => (<Checkbox checked={task.executionDate} style={styles.checkbox} onCheck={taskChecked(task)} />);
-    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} onCheck={taskChecked(task)} />);
+    const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
