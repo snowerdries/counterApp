@@ -1,4 +1,4 @@
-import { RECIEVE_TASKS } from '../constants';
+import { RECIEVE_TASKS, RECIEVE_TASK } from '../constants';
 
 const initialState = [
   {
@@ -46,6 +46,15 @@ const initialState = [
 export default function updateTasks(state = initialState, action) {
   if (action.type === RECIEVE_TASKS) {
     return action.tasks;
+  }
+  if (action.type === RECIEVE_TASK) {
+    const newTasks = state.map((task) => {
+      if (task.id === action.task.id) {
+        return action.task;
+      }
+      return task;
+    });
+    return Object.assign([], state, newTasks);
   }
   return state;
 }

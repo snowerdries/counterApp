@@ -12,6 +12,7 @@ import Avatar from 'material-ui/Avatar';
 import * as apiActions from '../actions/api.js';
 import { List, ListItem } from 'material-ui/List';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { grey400 } from 'material-ui/styles/colors';
 import Checkbox from 'material-ui/Checkbox';
 
@@ -87,12 +88,14 @@ class Home extends React.Component {
     );
   }
   _taskChecked(task) {
+    const modTask = task;
+    modTask.executionDate = moment.default().format('DD-MM-YYYY HH:MM');
     this.props.updateTask(task);
   }
   _renderTasks() {
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     const leftCheckBox = (task) => (<Checkbox style={styles.checkbox} onCheck={taskChecked(task)} id={task.id} />);
-    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={'18-06-2016 22:30'} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
