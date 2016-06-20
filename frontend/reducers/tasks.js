@@ -1,4 +1,5 @@
-import { RECIEVE_TASKS, RECIEVE_TASK } from '../constants';
+import { RECIEVE_TASKS, RECIEVE_TASK, DELETE_TASK } from '../constants';
+import * as _ from 'lodash';
 
 const initialState = [
   {
@@ -55,6 +56,10 @@ export default function updateTasks(state = initialState, action) {
       return task;
     });
     return Object.assign([], state, newTasks);
+  }
+  if (action.type === DELETE_TASK) {
+    const newTasks = _.filter(state, (task) => task.id !== action.task.id);
+    return newTasks;
   }
   return state;
 }

@@ -15,6 +15,10 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { grey400 } from 'material-ui/styles/colors';
 import Checkbox from 'material-ui/Checkbox';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import { deleteTask } from '../actions/tasks.js';
+
 
 import { RECIEVE_TASK } from '../constants.js';
 
@@ -25,6 +29,11 @@ const styles = {
   checkbox: {
     marginBottom: 16,
   },
+  actionButton: {
+    position: 'fixed',
+    right: '50px',
+    bottom: '25px',
+  },
 };
 
 const iconButtonElement = (
@@ -33,12 +42,6 @@ const iconButtonElement = (
   >
     <MoreVertIcon color={grey400} />
   </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
 );
 
 const mapStateToProps = function mapState(state) {
@@ -68,6 +71,9 @@ const mapDispatchToProps = function mapProps(dispatch) {
     updateTask: (task) => {
       dispatch(setTask(task));
       apiActions.updateTask(task, dispatch);
+    },
+    deleteTask: (task) => {
+      dispatch(deleteTask(task));
     },
   };
 };
@@ -101,10 +107,16 @@ class Home extends React.Component {
     modTask.isExecuted = e.target.checked;
     this.props.updateTask(task);
   }
+  _taskDeleted(task) {
+    this.props.deleteTask(task);
+  }
   _renderTasks() {
+    const rightIconMenuClicked = (task) => this._taskDeleted.bind(this, task);
+    const rightIconMenu = (task) =>
+      (<IconMenu iconButtonElement={iconButtonElement}><MenuItem onTouchTap={rightIconMenuClicked(task)}>Delete</MenuItem></IconMenu>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} onCheck={taskChecked(task)} />);
-    const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
@@ -120,6 +132,9 @@ class Home extends React.Component {
             <div className="col-xs-12">
               {this._renderTasks()}
             </div>
+            <FloatingActionButton style={styles.actionButton}>
+              <ContentAdd />
+            </FloatingActionButton>
           </div>
         </div>
       </div>
@@ -135,6 +150,7 @@ Home.propTypes = {
   user: React.PropTypes.object,
   tasks: React.PropTypes.array,
   updateTask: React.PropTypes.func,
+  deleteTask: React.PropTypes.func,
 };
 
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);
