@@ -3,43 +3,43 @@ import { RECIEVE_TASKS, RECIEVE_TASK } from '../constants';
 const initialState = [
   {
     id: 1,
-    description: 'Taak 1',
+    description: 'Vaatwasser opzetten',
   },
   {
     id: 2,
-    description: 'Taak 2',
+    description: 'Aardappelen schillen en spinaziepurree maken',
   },
   {
     id: 3,
-    description: 'Taak 3',
+    description: 'Speelgoed opruimen',
   },
   {
     id: 4,
-    description: 'Taak 4',
+    description: 'Kindjes in bad steken. Arthur zijn haar wassen',
   },
   {
     id: 5,
-    description: 'Taak 5',
+    description: 'Boekentas uitladen',
   },
   {
     id: 6,
-    description: 'Taak 6',
+    description: 'Rusten',
   },
   {
     id: 7,
-    description: 'Taak 7',
+    description: 'Groenafval buitenzetten',
   },
   {
     id: 8,
-    description: 'Taak 8',
+    description: 'Vuilbakken buitenzetten',
   },
   {
     id: 9,
-    description: 'Taak 9',
+    description: 'Gazon afrijden',
   },
   {
     id: 10,
-    description: 'Taak 10',
+    description: 'TV kijken',
   },
 ];
 
