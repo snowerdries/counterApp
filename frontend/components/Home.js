@@ -38,12 +38,6 @@ const rightIconMenu = (
   </IconMenu>
 );
 
-const leftCheckBox = (
-  <Checkbox
-    style={styles.checkbox}
-  />
-);
-
 const mapStateToProps = function mapState(state) {
   return {
     aantal: state.count.aantal,
@@ -62,6 +56,9 @@ const mapDispatchToProps = function mapProps(dispatch) {
     },
     doLogout: () => {
       apiActions.doLogout(dispatch);
+    },
+    updateTask: (task) => {
+      apiActions.updateTask(task, dispatch);
     },
   };
 };
@@ -89,8 +86,13 @@ class Home extends React.Component {
       </IconMenu>
     );
   }
+  _taskChecked(task) {
+    this.props.updateTask(task);
+  }
   _renderTasks() {
-    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={'18-06-2016 22:30'} leftCheckbox={leftCheckBox} rightIconButton={rightIconMenu} primaryText={task.description} />));
+    const taskChecked = (task) => this._taskChecked.bind(this, task);
+    const leftCheckBox = (task) => (<Checkbox style={styles.checkbox} onCheck={taskChecked(task)} id={task.id} />);
+    const items = _.map(this.props.tasks, (task) => (<ListItem secondaryText={'18-06-2016 22:30'} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
@@ -120,6 +122,7 @@ Home.propTypes = {
   doLogout: React.PropTypes.func,
   user: React.PropTypes.object,
   tasks: React.PropTypes.array,
+  updateTask: React.PropTypes.func,
 };
 
 const ConnectedHome = connect(mapStateToProps, mapDispatchToProps)(Home);

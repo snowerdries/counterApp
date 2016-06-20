@@ -26,3 +26,12 @@ export const doLogout = (dispatch) => {
       });
 };
 
+export const updateTask = (task, dispatch) => {
+  apiFunctions.updateTask(task)
+      .then((response) => {
+        // const user = setUser(response.data);
+        // dispatch(user);
+        console.log(response, dispatch);
+      });
+};
+

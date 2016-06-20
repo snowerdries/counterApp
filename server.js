@@ -9,8 +9,14 @@ require('dotenv').config();
 app.use(express.static(static_path));
 app.use(cors());
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 var auth = require('./backend/auth.js')(app);
 app.use('/', auth);
+
+var task = require('./backend/task.js')(app);
+app.use('/api/task', task);
 
 app.all('/*', function (req, res) {
   res.sendFile('/index.html', {
