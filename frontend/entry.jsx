@@ -8,6 +8,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import * as reducers from './reducers';
 import Home from './components/Home.js';
 import Login from './components/Login.js';
+import AddTask from './components/AddTask.js';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -92,6 +93,7 @@ const layout = (
           <Route path="/" />
           <Route path="/login" component={Login} onEnter={redirectIfAuthenticated} />
           <Route path="/home" component={Home} onEnter={redirectIfNotAuthenticated} />
+          <Route path="/AddTask" component={AddTask} onEnter={redirectIfNotAuthenticated} />
         </Router>
       </div>
     </Provider>

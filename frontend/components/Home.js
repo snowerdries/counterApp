@@ -18,6 +18,7 @@ import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { deleteTask } from '../actions/tasks.js';
+import { browserHistory } from 'react-router';
 
 
 import { RECIEVE_TASK } from '../constants.js';
@@ -107,6 +108,9 @@ class Home extends React.Component {
     modTask.isExecuted = e.target.checked;
     this.props.updateTask(task);
   }
+  _addTask() {
+    browserHistory.push('/AddTask');
+  }
   _taskDeleted(task) {
     this.props.deleteTask(task);
   }
@@ -132,7 +136,7 @@ class Home extends React.Component {
             <div className="col-xs-12">
               {this._renderTasks()}
             </div>
-            <FloatingActionButton style={styles.actionButton}>
+            <FloatingActionButton onTouchTap={this._addTask} style={styles.actionButton}>
               <ContentAdd />
             </FloatingActionButton>
           </div>
