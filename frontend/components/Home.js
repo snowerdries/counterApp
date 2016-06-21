@@ -14,7 +14,7 @@ import { List, ListItem } from 'material-ui/List';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { grey400 } from 'material-ui/styles/colors';
-import Checkbox from 'material-ui/Checkbox';
+// import Checkbox from 'material-ui/Checkbox';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { deleteTask } from '../actions/tasks.js';
@@ -102,10 +102,10 @@ class Home extends React.Component {
       </IconMenu>
     );
   }
-  _taskChecked(task, e) {
+  _taskChecked(task) {
     const modTask = task;
-    modTask.executionDate = e.target.checked ? moment.default().format('DD-MM-YYYY HH:mm') : null;
-    modTask.isExecuted = e.target.checked;
+    modTask.executionDate = !task.executionDate ? moment.default().format('DD-MM-YYYY HH:mm') : null;
+    modTask.isExecuted = !task.executionDate;
     this.props.updateTask(task);
   }
   _addTask() {
@@ -119,8 +119,8 @@ class Home extends React.Component {
     const rightIconMenu = (task) =>
       (<IconMenu touch iconButtonElement={iconButtonElement}><MenuItem touch onTouchTap={rightIconMenuClicked(task)}>Delete</MenuItem></IconMenu>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
-    const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} onCheck={taskChecked(task)} />);
-    const items = _.map(this.props.tasks, (task) => (<ListItem key={`taskListItem${task.id}`} secondaryText={task.executionDate} leftCheckbox={leftCheckBox(task)} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
+    // const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} />);
+    const items = _.map(this.props.tasks, (task) => (<ListItem onTouchTap={taskChecked(task)} key={`taskListItem${task.id}`} secondaryText={task.executionDate} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
