@@ -7,6 +7,15 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
+import AutoComplete from 'material-ui/AutoComplete';
+
+const possibilities = [
+  'Eten klaarmaken',
+  'Vaatwasser opzetten',
+  'Brood opzetten',
+  'Tafel afruimen',
+];
+
 class AddTask extends React.Component {
   _cancelAdd() {
     browserHistory.push('/home');
@@ -21,6 +30,16 @@ class AddTask extends React.Component {
             showMenuIconButton
             title="ADD TASK"
           />
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <AutoComplete
+              hintText="Begin met typen"
+              filter={AutoComplete.caseInsensitiveFilter}
+              dataSource={possibilities}
+              fullWidth
+            />
+          </div>
         </div>
       </div>
     );
