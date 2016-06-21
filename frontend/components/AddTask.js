@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
+import { addTask } from '../actions/tasks.js';
 
 const possibilities = [
   'Eten klaarmaken',
@@ -21,8 +22,11 @@ const mapStateToProps = function mapState() {
   };
 };
 
-const mapDispatchToProps = function mapProps() {
+const mapDispatchToProps = function mapProps(dispatch) {
   return {
+    saveTask: (newTask) => {
+      dispatch(addTask(newTask));
+    },
   };
 };
 
@@ -43,15 +47,31 @@ class AddTask extends React.Component {
   _handleUpdateInput(input) {
     this.setState({ searchText: input });
   }
+  generateUUID() {
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+  }
+  _saveTask() {
+    const text = this.state.searchText;
+    const newTask = { id: this.generateUUID(), description: text };
+    this.props.saveTask(newTask);
+    this.setState({ searchText: '' });
+  }
   render() {
     const cancelAdd = this._cancelAdd.bind(this);
     const handleInputChange = this._handleUpdateInput.bind(this);
+    const saveTask = this._saveTask.bind(this);
     return (
       <div className="container-fluid">
         <div className="row">
           <AppBar
             iconElementLeft={<IconButton onTouchTap={cancelAdd}><NavigationClose /></IconButton>}
-            iconElementRight={<FlatButton label="Save" />}
+            iconElementRight={<FlatButton label="Save" onTouchTap={saveTask} />}
             showMenuIconButton
             title="ADD TASK"
           />
@@ -74,7 +94,8 @@ class AddTask extends React.Component {
     );
   }
 }
-
-AddTask.propTypes = {};
+AddTask.propTypes = {
+  saveTask: React.PropTypes.func,
+};
 const ConnectedAddTask = connect(mapStateToProps, mapDispatchToProps)(AddTask);
 export default ConnectedAddTask;
