@@ -41,7 +41,7 @@ const iconButtonElement = (
   <IconButton
     touch
   >
-    <MoreVertIcon color={grey400} />
+    <MoreVertIcon touch color={grey400} />
   </IconButton>
 );
 
