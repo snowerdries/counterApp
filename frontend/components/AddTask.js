@@ -10,8 +10,9 @@ import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import { addTask } from '../actions/tasks.js';
 
-const mapStateToProps = function mapState() {
+const mapStateToProps = function mapState(state) {
   return {
+    user: state.user,
   };
 };
 
@@ -50,9 +51,11 @@ class AddTask extends React.Component {
   }
   _saveTask() {
     const text = this.state.searchText;
-    const newTask = { description: text };
-    this.props.saveTask(newTask);
-    this.setState({ searchText: '' });
+    if (text) {
+      const newTask = { description: text, userId: this.props.user.id, userName: this.props.user.displayName, userImage: this.props.user.image ? this.props.user.image.url : '' };
+      this.props.saveTask(newTask);
+      this.setState({ searchText: '' });
+    }
   }
   render() {
     const cancelAdd = this._cancelAdd.bind(this);
@@ -88,6 +91,7 @@ class AddTask extends React.Component {
 }
 AddTask.propTypes = {
   saveTask: React.PropTypes.func,
+  user: React.PropTypes.object,
 };
 const ConnectedAddTask = connect(mapStateToProps, mapDispatchToProps)(AddTask);
 export default ConnectedAddTask;

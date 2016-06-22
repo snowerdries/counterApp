@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 var taskSchema = new Schema({  
   description: String,
   executionDate: String,
-  creationDate: Date
+  creationDate: Date,
+  userId: String,
+  userName: String,
+  userImage: String,
 });
 
 var Task = mongoose.model('Task', taskSchema);
