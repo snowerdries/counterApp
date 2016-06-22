@@ -2,20 +2,13 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 // import RaisedButton from 'material-ui/RaisedButton';
-import { insertTask } from '../api/apiFunctions.js';
+import { insertTask, getTaskDescriptions } from '../api/apiFunctions.js';
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import { addTask } from '../actions/tasks.js';
-
-const possibilities = [
-  'Eten klaarmaken',
-  'Vaatwasser opzetten',
-  'Brood opzetten',
-  'Tafel afruimen',
-];
 
 const mapStateToProps = function mapState() {
   return {
@@ -36,7 +29,14 @@ class AddTask extends React.Component {
     super(props);
     this.state = {
       searchText: '',
+      possibilities: [],
     };
+  }
+  componentWillMount() {
+    const that = this;
+    getTaskDescriptions().then((response) => {
+      that.setState({ possibilities: response.data });
+    });
   }
   _cancelAdd() {
     if (this.state.searchText) {
@@ -73,7 +73,7 @@ class AddTask extends React.Component {
             <AutoComplete
               hintText="Begin met typen"
               filter={AutoComplete.caseInsensitiveFilter}
-              dataSource={possibilities}
+              dataSource={this.state.possibilities}
               fullWidth
               openOnFocus
               searchText={this.state.searchText}

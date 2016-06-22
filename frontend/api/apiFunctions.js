@@ -13,3 +13,5 @@ export const insertTask = (task) => axios.post(`${window.location.origin}/api/ta
 export const getTasks = () => axios.get(`${window.location.origin}/api/task`);
 
 export const deleteTaskOnServer = (task) => axios.delete(`${window.location.origin}/api/task/${task._id}`);
+
+export const getTaskDescriptions = () => axios.get(`${window.location.origin}/api/task/descriptions`);

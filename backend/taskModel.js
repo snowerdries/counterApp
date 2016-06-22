@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var taskSchema = new Schema({  
   description: String,
-  executionDate: String
+  executionDate: String,
+  creationDate: Date
 });
 
 var Task = mongoose.model('Task', taskSchema);
