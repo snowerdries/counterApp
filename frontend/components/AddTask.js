@@ -2,7 +2,7 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 // import RaisedButton from 'material-ui/RaisedButton';
-// import * as apiActions from '../actions/api.js';
+import { insertTask } from '../api/apiFunctions.js';
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
@@ -25,6 +25,7 @@ const mapStateToProps = function mapState() {
 const mapDispatchToProps = function mapProps(dispatch) {
   return {
     saveTask: (newTask) => {
+      insertTask(newTask);
       dispatch(addTask(newTask));
     },
   };
@@ -47,18 +48,9 @@ class AddTask extends React.Component {
   _handleUpdateInput(input) {
     this.setState({ searchText: input });
   }
-  generateUUID() {
-    let d = new Date().getTime();
-    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = (d + Math.random() * 16) % 16 | 0;
-      d = Math.floor(d / 16);
-      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-  }
   _saveTask() {
     const text = this.state.searchText;
-    const newTask = { id: this.generateUUID(), description: text };
+    const newTask = { description: text };
     this.props.saveTask(newTask);
     this.setState({ searchText: '' });
   }

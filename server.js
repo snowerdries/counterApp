@@ -9,6 +9,9 @@ require('dotenv').config();
 app.use(express.static(static_path));
 app.use(cors());
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://test:5345@ds019624.mlab.com:19624/heroku_k9hgz657');
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 

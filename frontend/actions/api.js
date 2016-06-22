@@ -1,5 +1,5 @@
 import * as apiFunctions from '../api/apiFunctions.js';
-import { RECIEVE_USER, RECIEVE_TASK } from '../constants.js';
+import { RECIEVE_USER, RECIEVE_TASK, RECIEVE_TASKS } from '../constants.js';
 // import { browserHistory } from 'react-router';
 
 export const setUser = (user) => ({
@@ -10,6 +10,11 @@ export const setUser = (user) => ({
 export const setTask = (task) => ({
   type: RECIEVE_TASK,
   task,
+});
+
+export const setTasks = (tasks) => ({
+  type: RECIEVE_TASKS,
+  tasks,
 });
 
 export const doAuthenticate = (dispatch) => {
@@ -36,6 +41,14 @@ export const updateTask = (task, dispatch) => {
     .then((response) => {
       const taskResp = response.data;
       dispatch(setTask(taskResp));
+    });
+};
+
+export const getTasks = (dispatch) => {
+  apiFunctions.getTasks()
+    .then((response) => {
+      const tasksResp = response.data;
+      dispatch(setTasks(tasksResp));
     });
 };
 

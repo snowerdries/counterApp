@@ -9,7 +9,7 @@ export default function updateTasks(state = initialState, action) {
   }
   if (action.type === RECIEVE_TASK) {
     const newTasks = state.map((task) => {
-      if (task.id === action.task.id) {
+      if (task._id === action.task._id) {
         return action.task;
       }
       return task;
@@ -17,7 +17,7 @@ export default function updateTasks(state = initialState, action) {
     return Object.assign([], state, newTasks);
   }
   if (action.type === DELETE_TASK) {
-    const newTasks = _.filter(state, (task) => task.id !== action.task.id);
+    const newTasks = _.filter(state, (task) => task._id !== action.task._id);
     return newTasks;
   }
   if (action.type === ADD_TASK) {

@@ -19,6 +19,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { deleteTask } from '../actions/tasks.js';
 import { browserHistory } from 'react-router';
+import { deleteTaskOnServer } from '../api/apiFunctions.js';
 
 
 import { RECIEVE_TASK } from '../constants.js';
@@ -74,12 +75,19 @@ const mapDispatchToProps = function mapProps(dispatch) {
       apiActions.updateTask(task, dispatch);
     },
     deleteTask: (task) => {
+      deleteTaskOnServer(task);
       dispatch(deleteTask(task));
+    },
+    getTasks: () => {
+      apiActions.getTasks(dispatch);
     },
   };
 };
 
 class Home extends React.Component {
+  componentWillMount() {
+    this.props.getTasks();
+  }
   _signOut() {
     this.props.doLogout();
   }
@@ -120,7 +128,7 @@ class Home extends React.Component {
       (<IconMenu touch iconButtonElement={iconButtonElement}><MenuItem touch onTouchTap={rightIconMenuClicked(task)}>Delete</MenuItem></IconMenu>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     // const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} />);
-    const items = _.map(this.props.tasks, (task) => (<ListItem onTouchTap={taskChecked(task)} key={`taskListItem${task.id}`} secondaryText={<span style={{ color: 'green' }}>{task.executionDate}</span>} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
+    const items = _.map(this.props.tasks, (task) => (<ListItem onTouchTap={taskChecked(task)} key={`taskListItem${task._id}`} secondaryText={<span style={{ color: 'green' }}>{task.executionDate}</span>} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
   render() {
@@ -147,6 +155,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
+  getTasks: React.PropTypes.func,
   counterIncrease: React.PropTypes.func,
   counterDecrease: React.PropTypes.func,
   aantal: React.PropTypes.number,
