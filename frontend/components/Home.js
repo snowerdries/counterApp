@@ -40,6 +40,7 @@ const styles = {
 
 const iconButtonElement = (
   <IconButton
+    style={{ marginTop: '-7px' }}
     touch
   >
     <MoreVertIcon touch color={grey400} />
@@ -128,7 +129,7 @@ class Home extends React.Component {
       (<IconMenu touch iconButtonElement={iconButtonElement}><MenuItem touch onTouchTap={rightIconMenuClicked(task)}>Delete</MenuItem></IconMenu>);
     const taskChecked = (task) => this._taskChecked.bind(this, task);
     // const leftCheckBox = (task) => (<Checkbox value={`chk${task.id}`} checked={task.isExecuted} style={styles.checkbox} />);
-    const leftAvatar = (task) => (<Avatar src={task.userImage} />);
+    const leftAvatar = (task) => (<Avatar style={{ marginTop: '-7px' }} src={task.userImage} />);
     const items = _.map(this.props.tasks, (task) => (<ListItem leftAvatar={leftAvatar(task)} onTouchTap={taskChecked(task)} key={`taskListItem${task._id}`} secondaryText={<span style={{ color: 'green' }}>{task.executionDate}</span>} rightIconButton={rightIconMenu(task)} primaryText={task.description} />));
     return (<List className={'smoothScroll'} style={{ maxHeight: '90vh' }}>{items}</List>);
   }
