@@ -13,10 +13,10 @@ module.exports = function(app) {
   });
 
   app.get('/api/task',function(req, res){
-    var today = moment().startOf('day');
+    var today = moment().add(1, 'days').startOf('day');
     var yesterday = moment(today).add(-1, 'days');    
-    today = today.hour(20).utc();
-    yesterday = yesterday.hour(20).utc();
+    today = today.hour(20);
+    yesterday = yesterday.hour(20);
     console.log(yesterday);
     console.log(today);
         
