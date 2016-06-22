@@ -54,7 +54,6 @@ module.exports = function(app) {
     });
     res.setHeader('Content-Type', 'application/json');       
     res.send(newTask); 
-  });
-  
+  });  
   return require('express').Router();
 };
