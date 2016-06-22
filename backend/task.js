@@ -15,8 +15,8 @@ module.exports = function(app) {
   app.get('/api/task',function(req, res){
     var today = moment().startOf('day');
     var yesterday = moment(today).add(-1, 'days');    
-    today = today.hour(20);
-    yesterday = yesterday.hour(20);
+    today = today.hour(20).utc();
+    yesterday = yesterday.hour(20).utc();
         
     Task.find({creationDate: { $gte: yesterday.toDate(),$lt: today.toDate() }}, function(err, tasks) {
         var result=[];
