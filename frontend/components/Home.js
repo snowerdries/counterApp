@@ -140,8 +140,8 @@ class Home extends React.Component {
     const avatar = (<Avatar src={src} />);
     return (
       <div className="container-fluid">
-        <div className="row">
-          <AppBar title={title} iconElementLeft={avatar} iconElementRight={rightMenu} />
+        <div>
+          <div className="row"><AppBar title={title} iconElementLeft={avatar} iconElementRight={rightMenu} /></div>
           <div className="row">
             <div className="col-xs-12">
               {this._renderTasks()}
