@@ -143,7 +143,7 @@ class Home extends React.Component {
         <div>
           <div className="row"><AppBar title={title} iconElementLeft={avatar} iconElementRight={rightMenu} /></div>
           <div className="row">
-            <div className="col-xs-12">
+            <div>
               {this._renderTasks()}
             </div>
             <FloatingActionButton onTouchTap={this._addTask} style={styles.actionButton}>
