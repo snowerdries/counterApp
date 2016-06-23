@@ -13,12 +13,12 @@ module.exports = function(app) {
   });
 
   app.get('/api/task',function(req, res){
-    var today = moment().add(1, 'days').startOf('day');
+    var today = moment().startOf('day');
     var yesterday = moment(today).add(-1, 'days');    
     today = today.hour(20);
     yesterday = yesterday.hour(20);
-    console.log(yesterday);
-    console.log(today);
+    console.log(yesterday.format('DD/MM/YYYY HH:mm'));
+    console.log(today.format('DD/MM/YYYY HH:mm'));
         
     Task.find({creationDate: { $gte: yesterday.toDate(),$lt: today.toDate() }}, function(err, tasks) {
         var result=[];
