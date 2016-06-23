@@ -17,8 +17,8 @@ module.exports = function(app) {
     var yesterday = moment(today).add(-1, 'days');    
     today = today.hour(20);
     yesterday = yesterday.hour(20);
-    // console.log(yesterday.format('DD/MM/YYYY HH:mm'));
-    // console.log(today.format('DD/MM/YYYY HH:mm'));
+    console.log(yesterday.format('DD/MM/YYYY HH:mm'));
+    console.log(today.format('DD/MM/YYYY HH:mm'));
         
     Task.find({creationDate: { $gte: yesterday,$lt: today }}, function(err, tasks) {
         var result=[];
