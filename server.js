@@ -49,3 +49,12 @@ if (isDevelopment) {
   });
 }
 
+var http = require("http");
+var moment = require('moment');
+setInterval(function() {
+    var hour=moment().hour();
+    if(hour>=7 && hour <=23){
+      http.get("http://snowerdries.herokuapp.com/");           
+    }    
+}, 300000); // every 5 minutes (300000)
+
