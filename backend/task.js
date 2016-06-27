@@ -33,6 +33,20 @@ module.exports = function(app) {
     });   
   });
 
+  app.get('/api/task/unfinished',function(req, res){
+    var today = moment().startOf('day');
+    var yesterday = moment(today).add(-1, 'days');  
+    yesterday = yesterday.hour(20); 
+    Task.find({$or:[{executionDate:{$exists: false},creationDate:{ $lt: yesterday }},{executionDate:'',creationDate:{ $lt: yesterday }}]}, function(err, tasks) {
+        var result=[];
+        if(!err){
+          result=tasks;
+        }   
+        res.setHeader('Content-Type', 'application/json');       
+        res.send(result);     
+    });   
+  });
+
   app.get('/api/task/descriptions',function(req, res){
     Task.find().distinct('description', function(err, descriptions) {
         var result=[];

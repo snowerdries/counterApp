@@ -20,6 +20,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { deleteTask } from '../actions/tasks.js';
 import { browserHistory } from 'react-router';
 import { deleteTaskOnServer } from '../api/apiFunctions.js';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 
 import { RECIEVE_TASK } from '../constants.js';
@@ -143,9 +144,17 @@ class Home extends React.Component {
         <div>
           <div className="row"><AppBar title={title} iconElementLeft={avatar} iconElementRight={rightMenu} /></div>
           <div className="row">
-            <div>
-              {this._renderTasks()}
-            </div>
+            <Tabs>
+              <Tab label="TODAY">
+                <div>
+                  {this._renderTasks()}
+                </div>
+              </Tab>
+              <Tab label="UNFINISHED">
+                <div>
+                </div>
+              </Tab>
+            </Tabs>
             <FloatingActionButton onTouchTap={this._addTask} style={styles.actionButton}>
               <ContentAdd />
             </FloatingActionButton>
