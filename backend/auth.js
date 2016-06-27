@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
+  var User = require('./userModel.js');
     //715231429824-6em74hbnmpc68j0dpj61fvjd9bi5dk9v.apps.googleusercontent.com
 //NeMrRHIzob3mcfdnUJD-NUdu
 var session = require('express-session');
@@ -54,9 +55,14 @@ app.get('/api/auth/google',
 //   which, in this example, will redirect the user to the home page.
 app.get('/api/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
-    req.session.user=req.user;
-    res.redirect('/');    
+  function(req, res) {  
+    var guser=req.user;    
+    User.findOne({ userId: guser.id }, function(err, user) {
+      if (!err && user && user.userId === guser.id){
+        req.session.user=req.user;
+      }
+      res.redirect('/');       
+    });     
   });
 
 app.get('/api/user',function(req, res){
