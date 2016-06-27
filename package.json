@@ -17,8 +17,6 @@
     "express": "^4.13.1",
     "express-session": "^1.13.0",
     "file-loader": "^0.8.4",
-    "hubot": "^2.19.0",
-    "hubot-heroku-keepalive": "^1.0.2",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.0",
     "materialize-css": "^0.97.6",
